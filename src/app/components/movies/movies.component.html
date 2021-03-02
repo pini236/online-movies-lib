@@ -11,6 +11,7 @@
             <input type="text" class="form-control searchdesign" placeholder="Search for movies..."
               [(ngModel)]="searchStr" name="searchStr" (keyup.enter)="searchMovies()">
             <select class="form-control searchdesign" [(ngModel)]="yearStr" name="yearStr">
+              <option value="0" disabled selected>Select year</option>
               <option *ngFor="let year of years">{{year}}</option>
             </select>
             <span class="input-group-btn">
