@@ -1,0 +1,111 @@
+<div class="hero">
+    <div class="backdrop">
+        <div class="lazyloaded">
+            <button class="play" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+                    <circle cx="27.5" cy="27.5" r="26.75" fill="none" stroke="#fff" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="1.5" />
+                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z" />
+                </svg>
+            </button>
+            <img class="lazyload image" [src]="movie?.Poster">
+        </div>
+    </div>
+    <div class="pane">
+        <div>
+            <div class="name">{{ movie?.Title }}</div>
+            <div class="meta">
+
+                <div class="info">
+                    <span class="rate">
+                        <i class="material-icons">star</i><span>{{ movie?.imdbRating }}</span> /10
+                    </span>
+                    <span> {{movie?.imdbVotes }} Reviews</span>
+                    <span>{{movie?.Released }}</span>
+                    <span>{{movie?.Runtime }}</span>
+                </div>
+            </div>
+            <div class="desc">{{ movie?.Plot }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <mat-tab-group class="mt-5 mb-5" mat-align-tabs="center" animationDuration="0ms">
+                <mat-tab label="Overview">
+                    <div class="listing-space info__movies">
+                        <div class="left">
+                            <div class="poster">
+                                <img [src]="movie?.Poster">
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="overview">
+                                <h2 class="title">Storyline</h2>
+                                <div>{{movie?.Plot}}</div>
+                            </div>
+                            <div class="stats">
+                                <ul class="nolist">
+                                    <li>
+                                        <div class="label">
+                                            Released
+                                        </div>
+                                        <div class="value">
+                                            {{ movie?.Released }}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label">
+                                            Runtime
+                                        </div>
+                                        <div class="value">
+                                            {{ movie?.Runtime }}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label">
+                                            Genre
+                                        </div>
+                                        <div class="value">
+                                            {{ movie?.Genre }}
+                                        </div>
+                                    </li>
+                                    <li >
+                                        <div class="label">
+                                            Language
+                                        </div>
+                                        <div class="value">
+                                            {{movie?.Language}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listing-space">
+                        <div class="listing__head">
+                            <h2 class="listing__title">Actors</h2>
+                        </div>
+                        <p-carousel [value]="movie?.Actors.split(',')" [numVisible]="6" [numScroll]="4" [circular]="false"
+                            [responsiveOptions]="responsiveOptions">
+                            <ng-template let-cast pTemplate="item">
+                                <div class="listing-item-style">
+                                    <div class="overlay">
+                                        <div class="hover">{{cast}}</div>
+                                    </div>
+                                    <img src="assets/images/default-image.svg">
+                                    <h6>{{ cast }}</h6>
+                                </div>
+                            </ng-template>
+                        </p-carousel>
+                    </div>
+
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

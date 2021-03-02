@@ -14,6 +14,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { LoaderComponent } from './components/loader/loader.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
+import { MatTabsModule } from '@angular/material';
 
 
 
@@ -22,7 +24,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AppComponent,
     MoviesComponent,
     HeaderComponent,
-    LoaderComponent
+    LoaderComponent,
+    MovieDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     NgxSkeletonLoaderModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

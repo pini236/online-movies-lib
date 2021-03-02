@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from 'src/app/services/movies.service';
+import { QueryService } from 'src/app/services/query.service';
 
 @Component({
   selector: 'app-movies',
@@ -7,15 +8,15 @@ import { MoviesService } from 'src/app/services/movies.service';
   styleUrls: ['./movies.component.scss']
 })
 export class MoviesComponent implements OnInit {
-  topRated: any;
   responsiveOptions;
   loader = true;
   totalResults: any;
-  total_results: any;
   searchRes: any;
-  searchStr: string ='tom';
+  searchStr: string = '';
+  yearStr: number;
+  years: Array<number>;
 
-  constructor(private moviesService: MoviesService) {
+  constructor(private moviesService: MoviesService, private queryService: QueryService) {
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -33,20 +34,38 @@ export class MoviesComponent implements OnInit {
         numScroll: 1
       }
     ];
-
+    this.setYearsRange();
+  }
+  setYearsRange() {
+    const currentYear = new Date().getFullYear();
+    this.years = Array.from(Array(currentYear).keys()).map((i) => currentYear - i);
   }
 
   ngOnInit() {
-    this.searchMovies();
+    this.searchStr = this.queryService.title;
+    this.yearStr = this.queryService.year;
+    if (this.searchStr)
+      this.searchMovies();
   }
-
   changePage(event) {
     this.searchMovies(event.pageIndex + 1);
   }
 
   searchMovies(page: number = 1) {
     this.loader = true;
-    this.moviesService.search(this.searchStr, page).subscribe((res: any) => {
+    this.queryService.title = this.searchStr;
+    this.queryService.year = this.yearStr;
+    this.moviesService.search(this.searchStr, page, this.yearStr).subscribe((res: any) => {
+      this.searchRes = res.Search;
+      this.loader = false;
+      this.totalResults = res.totalResults;
+    });
+  }
+  filterMovies() {
+    this.loader = true;
+    this.queryService.title = this.searchStr;
+    this.queryService.year = this.yearStr;
+    this.moviesService.search(this.searchStr, null, this.yearStr).subscribe((res: any) => {
       this.searchRes = res.Search;
       this.loader = false;
       this.totalResults = res.totalResults;

@@ -35,7 +35,6 @@
   }
 }
 
-
 .backdrop {
   position: relative;
   display: flex;
@@ -43,6 +42,7 @@
   min-height: 0;
 
   @media (min-width: $breakpoint-medium) {
+    text-align: end;
     position: absolute;
     top: 0;
     right: 0;
@@ -59,20 +59,10 @@
     left: 0;
     display: block;
     content: "";
-    background-image: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.1) 50%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 100%);
 
     @media (min-width: $breakpoint-medium) {
-      background-image: linear-gradient(
-        to right,
-        #000 0,
-        transparent 50%,
-        transparent 100%
-      );
+      background-image: linear-gradient(to right, #000 0, transparent 50%, transparent 100%);
     }
   }
 
