@@ -1,0 +1,48 @@
+<div class="listing">
+  <div class="listing__head">
+    <h3 class="listing__title" *ngIf="!searchRes">Movies</h3>
+    <h3 class="listing__title" *ngIf="searchRes">Search Movies</h3>
+  </div>
+  <form>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control searchdesign" placeholder="Search for movies..."
+              [(ngModel)]="searchStr" name="searchStr" (keyup.enter)="searchMovies()">
+            <select class="form-control searchdesign"  name="example">
+              <option *ngFor="let year in years">{year}</option>
+              <option value="B">B</option>
+              <option value="-">Other</option>
+            </select>
+            <span class="input-group-btn">
+              <button class="btn btn-primary btnDesign" type="button" (click)="searchMovies()">Go!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <ng-container *ngIf="searchRes">
+    <loader *ngIf="loader"></loader>
+    <div class="row" *ngIf="!loader">
+      <div class="col-md-2 listing__items" *ngFor="let movie of searchRes | slice:0:18">
+        <div [routerLink]="['/movies/', movie.id]">
+          <div class="listing-item-style">
+            <div class="overlay">
+              <div class="hover">Learn More</div>
+            </div>
+            <img *ngIf="movie?.Poster" [src]="movie?.Poster" [alt]="movie.Title">
+            <img *ngIf="!movie?.Poster" src="assets/images/default-movie.png" [alt]="movie.Title">
+            <h6>{{ movie?.Title }}</h6>
+            <p class="year"><span>{{movie?.Year | date: 'yyyy'}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <mat-paginator [length]="totalResults" [pageSize]="10" (page)="changePage($event)"></mat-paginator>
+
+</div>
